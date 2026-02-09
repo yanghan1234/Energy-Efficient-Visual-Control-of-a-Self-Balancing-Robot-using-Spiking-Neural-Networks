@@ -1,3 +1,154 @@
 \section{Introduction}
-\subsection{}
+
+\subsection{Background and Motivation}
+The proliferation of autonomous mobile systems has revolutionized sectors
+ranging from industrial logistics to domestic services. At the core of these 
+systems lies visual perception and control, which enables robots to perceive and 
+interpret unstructured environments and execute complex navigation tasks[1]. In recent
+years, Convolutional Neural Networks(CNNs) have established themselves as the state-of-art solution
+for robotic vision due to their superior performance in feature extraction 
+and pattern recognition[2].\\
+
+However, the deployment of Deep Learning models on some mobile robotic platforms
+(most of them are resource-constrained) introduces a fundamental trade-off between 
+computational performance and energy efficiency. Unlike cloud-based AI systems with
+almost unlimited computational and energy resources, mobile robots and 
+embedded systems-- especially micro-robots and self-balancing robots-- 
+operate under significant constraints and challenges due to their limites computational resources,
+including memory, processing power, and energy consumption[3].
+
+The continuous processing of 
+computionally intensive CNNs on battery-powered embedded processors often leads to
+rapid depletion and thermal throttling, which severely limites the operational duration
+of the robot and its ability to perform real-time tasks.\\
+
+To address these challenges, Neuromorphic Computing has emerged as a promising paradigm
+shift in embedded Artificial Intelligence. Inspired by the energy-efficient mechanisms
+of the biological brain, Spiking Neural Networks(SNNs) process information using discrete,
+sparse events(Spikes) rather than continuous numerical values, can offer
+order-of-magnitude improments in energy efficiency compared to traditional Artificial Neural
+Networks(ANNs)[5]. Consequently, investigating the application of SNNs in Edge Robotics
+represents a critical frontier in modern robotic engineering.
+
+\subsection{Problem Statement}
+Despite their theoretical potential, the pratical deployment of SNNs on 
+physical rototic platforms faces several critical engineering challenges:
+\begin{description}
+    \item[Computational Efficiency on Non-Neuromorphic Hardware:] While SNNs are 
+    designed for specialized neuromorphic 
+    chips (e.g., Intel Loihi), most edge robots, such as the Yahboom self-balancing 
+    platform,
+     rely on general-purpose microcontrollers like the STM32 and ESP32.
+      Achieving high-performance SNN inference on these platforms requires rigorous 
+      optimization of software-hardware co-design.
+    
+    \item[Sensory Integration and Real-time Control:] Autonomous systems such as two-wheeled
+    self-balancing robots are dynamically unstable and require millisecond-level feedback loops. 
+    Conventional frame-based vision sensors generate redundant data, which contradicts 
+    the event-driven nature of SNNs. Developing a visual encoding mechanism that can bridge 
+    frame-based input with spike-based processing isessential for maintaining system stability.
+
+    
+    \item[The Sim-to-Real Gap:] Many SNN studies remain confined to theoretical simulations
+    or static dataset benchmarks. There is a pressing need for empirical research that demonstrates
+    the feasibility of SNNs in managing closed-loop, real-time control tasks on physical hardware.
+\end{description}
+
+\subsection{Research Aims and Objectives}
+The primary aim of this research is to design and implement a high-performance,
+energy-efficient visual control framework for a self-balancing robot, leveraging the sparse compurting
+characteristics of SNNs. The research will focus on achieving real-time, colsed-loop
+navigation by optimizing the synergy between neuromorphic algorithms and embedded hardware.
+To achieve this aim, the following objectives have been established:
+\begin{enumerate}[label=\textbf{Objective \arabic*:}, leftmargin=*]
+    \item \textbf{Development of a Hierarchical Control Architecture}\newline
+    To establish a multi-layer control system using ROS 2 Humble. This involves
+    utilizing an ESP32-S3 as a high-speed communication gateway to bridge the high-level
+    SNN cognitive logic(running on a host machine) with the low-level reflexive control
+    (implemented on an STM32F103). The architecture will leverage micro-ROS to ensure 
+    synchronized data exchange between the SNN decision-making and the PID balancing loops.
+    
+    
+    \item \textbf{Design of a Retina-inspired Visual Encoder}\newline
+    To develop a visual encoding scheme based on temporal difference algorithms. 
+    By computing the pixel-level intensity changes between successive frames,
+    the system converts standaed RGB video streams into sparse, event-based spike
+    tensors. This process aims to minimize redundant computation at the edge, mirroring
+    the biological efficiency of the human retina.
+    
+    \item \textbf{Implementation of an Optimized C++ Inference Engine}\newline
+    To engineer a dedicated SNN inference engine using the Eigen library within a C++
+    environment. Utilizing software-hardware co-design techniques, this objective 
+    focuses on minimizing processing latency to meet the millisecond-level responsiveness
+    required for dynamically unstable platforms.
+
+    \item \textbf{Performance Evalution and Benchmarking}\newline
+    To quantitatively access the navigation accuracy and energy efficiency of the system.
+    Using Synaptic Operations(SPOs) as the primary metric, the SNN-based controller will
+    be benchmarked against traditional CNNs to validate its energy-saving potential
+    in edge robotics applications.
+\end{enumerate}
+
+\subsection{Research Significance}
+This research contributes to the field of Edge Artifical Intelligence(Edge AI) by
+bridging the gap between biological inspiration and practical robotic engineering:
+
+\begin{enumerate}[label=\textbf{\arabic*.}, leftmargin=*]
+    \item \textbf{Practical Framework for Spike-based Robotics} \newline
+    By implementing SNNs on a cost-effective, multi-processor platform(integrating STM32
+    and ESP32), this work provides a scalable bileprint for the transition from theoretical
+    simulation to physical deployment. It validates the robustness of event-driven vision
+    in stabilizing dynamically unstable systems, offering a viable path for the development
+    of long-endurance autonomous embedded devices.
+    
+    \item \textbf{Advancement of Software-Hardware Co-optimization} \newline
+    The research demonstrates a rigorous co-optimization straegy, where the high-level C++
+    SNN engine is harmomized with the low-level micro-ROS communicationlayer. 
+    This approach addresses the critical constraints of Edge Intelligence,
+     such as limited memory and power budgets, 
+     while ensuring the millisecond-level responsiveness required for real-time control.
+    
+    \item \textbf{Integration of Neuromorphic Theory and Nanostructure Horizons}\newline 
+    This dissertation establishes a computational foundation for the future migration of AI 
+    from general-purpose CPUs to specialized neuromorphic architectures. By validating SNN 
+    algorithmic efficiency on standard CMOS-based hardware, the research provides critical 
+    performance benchmarks and architectural insights. These findings are essential for the 
+    future design of dedicated Neuromorphic Systems-on-Chip (NSoC), facilitating the evolution 
+    toward more bio-plausible and energy-efficient digital integrated circuits.
+\end{enumerate}
+
+\subsection{Thesis Structure}
+The remainder of this dissertation is organized into the following seven chapters:
+
+\begin{itemize}[leftmargin=*]
+
+    \item \textbf{Chapter 2: Literature Review} examines the theoretical foundations of 
+    Spiking Neural Networks (SNNs) alongside classical control theories. It reviews the 
+    state-of-the-art in neuromorphic sensing, Real-Time Operating Systems (RTOS) for 
+    robotics, and the stability challenges inherent in inverted pendulum systems.
+
+    \item \textbf{Chapter 3: System Methodology} proposes a decoupled hierarchical architecture. 
+    It details the mathematical modeling of the self-balancing robot, the design of the cascaded 
+    PID control loops, and the development of a ``Retina-inspired'' visual encoding algorithm for 
+    spike-based perception.
+
+    \item \textbf{Chapter 4: Implementation and Engineering} describes the multi-processor hardware
+     integration involving the STM32F103 and ESP32-S3. This chapter focuses on the embedded software 
+     engineering aspects, including RTOS task prioritization, micro-ROS middleware configuration, and 
+     the development of an optimized C++ SNN inference engine.
+
+    \item \textbf{Chapter 5: Experiments and Results} presents empirical data from physical robot trials.
+     It evaluates the system's performance across multiple dimensions, including balancing stability (pitch jitter),
+      navigation accuracy, and computational energy efficiency quantified by Synaptic Operations (SOPs).
+
+    \item \textbf{Chapter 6: Discussion} provides a critical analysis of the experimental findings, 
+    focusing on the trade-offs between biological plausibility and real-time engineering constraints. 
+    It also discusses the system's robustness in Edge AI scenarios.
+
+    \item \textbf{Chapter 7: Conclusion} summarizes the key engineering contributions and academic insights
+     of the research, offering recommendations for future advancements in neuromorphic embedded systems and 
+     hardware-in-the-loop control.
+
+\end{itemize}
+
 \ExecuteMetaData[table]{parameters}

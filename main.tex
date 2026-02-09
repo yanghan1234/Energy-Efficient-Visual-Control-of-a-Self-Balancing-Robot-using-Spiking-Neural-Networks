@@ -21,12 +21,15 @@
 \usepackage{caption}
 \usepackage{subfigure}
 \usepackage{diagbox}
+\usepackage{enumitem}
 \makeatletter
 \newcommand{\rmnum}[1]{\romannumeral #1}
 \newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
 \makeatother
 \newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
 %***************************    Base   ***************************
+\setlength{\parindent}{0pt}          % 取消首行缩进
+\setlength{\parskip}{0.8em}          % 设置段落间的空隙（高度约等于一个字符）
 
 
 \begin{document}

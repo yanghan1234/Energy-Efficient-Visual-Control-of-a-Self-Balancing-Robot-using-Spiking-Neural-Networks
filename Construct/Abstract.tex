@@ -1,7 +1,19 @@
 \newpage
 
 \begin{abstract}
-   abstract-text
+   Visual recognition and control in mobile robotics typically relies on computationally intensive Convolutional Neural Networks(CNNs),
+   which poses significant challenges for battery-powered embedded systems, particularly dynamically unstable platforms such as self-balancing 
+   robots. Conventional frame-based CNNs process redundant video data regardless of scene dynamics, resulting in substantial energy consumption 
+   and processing latency that constrain real-time performance at the edge.
+
+To address these limitations, this dissertation proposes a novel neuromorphic visual control framework based on the Robot Operating System 
+(ROS 2 Humble). The system utilizes Difference Encoding to simulate biological retinal mechanisms for dynamic feature extraction and integrates 
+a custom-designed Spiking Convolutional Neural Network (SCNN). Furthermore, to bridge the gap between algorithmic complexity and embedded constraints, 
+a high-performance C++ inference engine is developed to deploy the SNN within the real-time control loop of the robot.
+
+Experimental results demonstrate that in visual line-following and target tracking tasks, the proposed SNN architecture maintains control accuracy 
+comparable to traditional deep learning approaches while reducing theoretical Synaptic Operations (SOPs) by approximately [X]
+% compared to isomorphic CNNs. These findings validate the potential of Spiking Neural Networks for enabling energy-efficient, low-latency visual control in edge robotics.
 \end{abstract}
 \clearpage
 \newpage
