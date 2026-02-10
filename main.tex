@@ -22,6 +22,17 @@
 \usepackage{subfigure}
 \usepackage{diagbox}
 \usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+
+\usepackage{subcaption}
+\usepackage{graphicx}
+
+
+\usetikzlibrary{positioning, arrows.meta, calc, shadows}
+
+\usetikzlibrary{decorations.pathreplacing, arrows.meta, calc}
+
 \makeatletter
 \newcommand{\rmnum}[1]{\romannumeral #1}
 \newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
@@ -30,6 +41,13 @@
 %***************************    Base   ***************************
 \setlength{\parindent}{0pt}          % 取消首行缩进
 \setlength{\parskip}{0.8em}          % 设置段落间的空隙（高度约等于一个字符）
+
+% 在 \begin{document} 之前加入：
+\usepackage{caption} 
+
+% font=small: 把图注字体设为小一号
+% labelfont=bf: 把图号 (Figure 2.1) 设为粗体
+\captionsetup{font=small, labelfont=bf}
 
 
 \begin{document}
@@ -59,7 +77,12 @@
 
 
 %*************************** References ***************************
-\include{Construct/References}
+%*************************** References ***************************
+\newpage
+\bibliographystyle{acm} 
+% 注意：这里用 \bibliography 命令，路径里不要加 .bib 后缀
+\bibliography{Construct/Reference} 
+%*************************** References ***************************
 %*************************** References ***************************
 
 

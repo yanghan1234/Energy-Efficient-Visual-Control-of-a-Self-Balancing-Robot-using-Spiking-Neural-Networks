@@ -1,10 +1,74 @@
 \newpage
-\section{A}
-ABCDE\cite{Wallner2004Efficient}FG
-\subsection{}
+\section{Literature Review}
 
-\subsection{}
 
-\subsection{}
 
-\subsection{}
+\subsection{Neuromorphic Computing and Spiking Neural Networks}
+
+\subsubsection{From Frame-based to Event-based Perception}
+
+
+Conventional Artificial Neural Networks(ANNs), particularly Convolutional
+Neural Networks(CNNs), rely on dense, frame-synchronous processing, where
+information is represented by continuous-valued floating-point activations.
+While effective for static image recognition, this paradigm exhibits inherent
+computational redundancy: the entire pixel array is re-evaluated via
+matrix multiplications at each time step, regardless of temporal variations
+in the scene. For a dynamically unstable system such as a self-balancing
+robot-modeled as an inverted pendulum-this redundancy imposes a fixed latency
+floor(bounded by the framerate) and incurs excessive computational overhead,
+potentially compromising the bandwidth of the stabilization control loop \cite{gallego2020event}.
+
+
+\input{Figures/2.1.1 frame_vs_event.tex}
+
+
+In contrast, Spiking Neural Networks(SNNs)-conceptualized as the third generation
+ of neural networks—introduce a fundamental paradigm shift towards neuromorphic, 
+ event-driven computing. Information is encoded in the precise timing of discrete, 
+ binary impulses known as "spikes." This asynchronous processing mechanism confers 
+ two critical advantages for embedded robotic control:
+
+ \begin{enumerate}
+\item \textbf{Temporal Sparsity and Energy Efficiency:}
+Neuronal activation is conditional, triggered only when the membrane potential 
+accumulates sufficient stimuli to breach a threshold. Consequently, static 
+background elements in a visual navigation task elicit negligible spiking 
+activity. This sparsity allows the hardware to replace the power-hungry 
+Multiply-Accumulate (MAC) operations typical of conventional ANNs with 
+energy-efficient, event-driven Accumulate (AC) operations \cite{roy2019towards}. 
+This effectively decouples computational cost from input resolution,
+ significantly reducing the dynamic power consumption and processing 
+ load on the host CPU.
+
+
+
+\item \textbf{High Temporal Resolution and Low Latency:} 
+Unlike frame-based systems constrained by the Nyquist sampling rate 
+of standard cameras (e.g., a fixed 33ms latency at 30Hz), SNNs operate 
+on continuous time dynamics. This allows for pseudo-continuous 
+processing of visual inputs, theoretically enabling microsecond-level 
+responsiveness to sudden environmental changes, which is imperative for 
+maintaining stability in high-frequency feedback loops.
+
+\end{enumerate}
+
+
+
+
+
+\begin{figure}[!t]
+    \centering
+    \vspace{-1cm} 
+    
+    
+    \includegraphics[width=0.7\textwidth]{Figures/snn_mechanism_ref1.png}
+    
+    \caption{Schematic of pre-synaptic neurons transmitting spike trains to a post-synaptic neuron via synaptic weights. Adapted from \cite{roy2019towards}.}
+    
+    
+    \label{fig:snn_integration}
+\end{figure}
+
+
+\subsection{Challenges in Deploying SNNs on Embedded Robotics Platforms}
